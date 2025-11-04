@@ -27,6 +27,6 @@ export default function ShortBaseURLProvider({ children }) {
       {children}
     </ShortBaseURLContext.Provider>
   );
-};
+}
 
 export const ShortBaseURL = ShortBaseURLContext;

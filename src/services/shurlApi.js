@@ -28,47 +28,50 @@ api.interceptors.response.use(
   (response) => response,
   async (error) => {
     const originalRequest = error.config;
-    
+
     // if error 401 (Unauthorized) and havent yer tried refreshing
     if (error.response?.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
-      
+
       try {
         // force refresh token
         await auth.currentUser.getIdToken(true);
         const newToken = await auth.currentUser.getIdToken();
-        
+
         // Update header with new token
         originalRequest.headers.Authorization = `Bearer ${newToken}`;
-        
+
         // retry
         return api(originalRequest);
       } catch (refreshError) {
         console.error("Token refresh failed:", refreshError);
         // Redirect ke login page if refresh fail
-        if (typeof window !== 'undefined') {
-          window.location.href = '/login';
+        if (typeof window !== "undefined") {
+          window.location.href = "/login";
         }
         return Promise.reject(refreshError);
       }
     }
-    
+
     return Promise.reject(error);
-  }
+  },
 );
 
 export const urlShortenerAPI = {
   // authenticated endpoints
-  shortenURL: (data) => api.post("/u/shorten", data),
+  shortenURL: (data) => {
+    console.log("Submitted shorten data:", data);
+    return api.post("/u/shorten", data);
+  },
   getShortlinks: () => api.get("/u/shortlinks"),
-  getClickCount: (shortId) => api.get(`/u/click-count/${encodeURIComponent(shortId)}}`),
+  getClickCount: (shortId) => api.get(`/u/click-count/${shortId}}`),
   exportClicks: (shortId, format = "csv", opts = {}) =>
-    api.get(`/u/click-count/${encodeURIComponent(shortId)}/export`, {
+    api.get(`/u/click-count/${shortId}/export`, {
       params: { format },
       ...opts,
     }),
   getAnalytics: (shortId, params = {}) =>
-    api.get(`/u/analytics/${encodeURIComponent(shortId)}`, { params }),
+    api.get(`/u/analytics/${shortId}`, { params }),
 
   // admin endpoints
   getBlacklist: () => api.get("/admin/blacklist"),
