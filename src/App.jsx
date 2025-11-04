@@ -8,6 +8,7 @@ import useAuth from "./hooks/useAuth.js";
 import Login from "./components/Login";
 import Signup from "./components/SignUp";
 import Dashboard from "./components/Dashboard";
+import Settings from "./components/Settings.jsx";
 
 function App() {
   const { user, loading } = useAuth();
@@ -28,6 +29,7 @@ function App() {
             <main className="flex-1 overflow-x-hidden overflow-y-auto bg-gray-50">
               <Routes>
                 <Route path="/dashboard" element={<Dashboard />} />
+                <Route path="/settings" element={<Settings />} />
                 <Route
                   path="/"
                   element={<Navigate to="/dashboard" replace />}
