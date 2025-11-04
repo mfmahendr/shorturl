@@ -28,3 +28,5 @@ export default function ShortBaseURLProvider({ children }) {
     </ShortBaseURLContext.Provider>
   );
 };
+
+export const ShortBaseURL = ShortBaseURLContext;
