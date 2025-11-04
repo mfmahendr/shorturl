@@ -1,17 +1,19 @@
 import { useState, useEffect } from "react";
 import { urlShortenerAPI } from "../services/shurlApi";
-import { Link, Copy, RefreshCw, BarChart3, Lock } from "lucide-react";
+import { Link, Copy, RefreshCw, BarChart3, Lock, List } from "lucide-react";
 import ShortlinkForm from "./ShortlinkForm";
+import { useShortBaseUrl } from "../hooks/useShortBaseURL";
 
 export default function Dashboard() {
   const [shortLinks, setShortLinks] = useState([]);
   const [loadingLinks, setLoadingLinks] = useState(false);
+  const { getShortUrl } = useShortBaseUrl();
 
   const fetchShortLinks = async () => {
     setLoadingLinks(true);
     try {
       const response = await urlShortenerAPI.getShortlinks();
-      setShortLinks(response.data);
+      setShortLinks(response.data.links);
     } catch (err) {
       console.error("Error fetching shortlinks:", err);
     }
@@ -39,7 +41,7 @@ export default function Dashboard() {
       <div className="bg-white shadow-lg rounded-xl p-6 border border-lime-200">
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-xl font-bold text-gray-900 flex items-center gap-2">
-            <Link className="w-5 h-5 text-lime-600" />
+            <List className="w-5 h-5 text-lime-600" />
             My Shortlinks
           </h2>
           <button
@@ -75,8 +77,10 @@ export default function Dashboard() {
                 <div className="flex justify-between items-start mb-2">
                   <div className="flex-1">
                     <div className="flex items-center gap-2 mb-1">
-                      <span className="text-sm font-medium text-gray-900">
-                        {link.short_id}
+                      <span className="text-sm font-medium text-lime-600">
+                        <a href={getShortUrl(link.short_id)}>
+                          {getShortUrl(link.short_id)}
+                        </a>
                       </span>
                       {link.is_private && (
                         <span className="bg-lime-100 text-lime-800 text-xs px-2 py-1 rounded flex items-center gap-1">
@@ -85,16 +89,12 @@ export default function Dashboard() {
                         </span>
                       )}
                     </div>
-                    <p className="text-sm text-gray-600 truncate">
-                      {link.url}
-                    </p>
+                    <p className="text-sm text-gray-600 truncate">{link.url}</p>
                   </div>
                   <div className="flex items-center gap-2 ml-4">
                     <button
                       onClick={() =>
-                        copyToClipboard(
-                          `${window.location.origin}/r/${link.short_id}`,
-                        )
+                        copyToClipboard(getShortUrl(link.short_id))
                       }
                       className="bg-lime-100 hover:bg-lime-200 text-lime-800 px-3 py-1 rounded text-sm transition-colors duration-200 flex items-center gap-1"
                     >

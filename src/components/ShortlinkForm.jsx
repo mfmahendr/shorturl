@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { urlShortenerAPI } from "../services/shurlApi";
 import { Link, Copy, RefreshCw, Lock, Globe } from "lucide-react";
+import { useShortBaseUrl } from "../hooks/useShortBaseURL";
 
 export default function ShortlinkForm({
   onSuccess,
@@ -14,6 +15,7 @@ export default function ShortlinkForm({
   const [result, setResult] = useState(null);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const { getShortUrl } = useShortBaseUrl();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -35,6 +37,7 @@ export default function ShortlinkForm({
         onSuccess();
       }
     } catch (err) {
+      console.error("Error shortening: ", err);
       setError(err.response?.data || "Error shortening URL");
     }
     setLoading(false);
@@ -167,14 +170,10 @@ export default function ShortlinkForm({
           </p>
           <div className="mt-2 flex items-center gap-2">
             <code className="flex-1 bg-white border border-lime-300 rounded px-3 py-2 text-sm font-mono text-lime-800">
-              {window.location.origin}/r/{result.short_id}
+              {getShortUrl(result.short_id)}
             </code>
             <button
-              onClick={() =>
-                copyToClipboard(
-                  `${window.location.origin}/r/${result.short_id}`,
-                )
-              }
+              onClick={() => copyToClipboard(getShortUrl(result.short_id))}
               className="bg-lime-100 hover:bg-lime-200 text-lime-800 px-3 py-2 rounded text-sm transition-colors duration-200 flex items-center gap-1"
             >
               <Copy className="w-3 h-3" />
