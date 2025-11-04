@@ -7,9 +7,10 @@ import {
 import useAuth from "./hooks/useAuth.js";
 import Login from "./components/Login";
 import Signup from "./components/SignUp";
+import Dashboard from "./components/Dashboard";
 
 function App() {
-  const { loading } = useAuth();
+  const { user, loading } = useAuth();
 
   if (loading) {
     return (
@@ -21,11 +22,27 @@ function App() {
 
   return (
     <Router>
+      {user ? (
+        <div className="flex h-screen bg-gray-50">
+          <div className="flex-1 flex flex-col overflow-hidden">
+            <main className="flex-1 overflow-x-hidden overflow-y-auto bg-gray-50">
+              <Routes>
+                <Route path="/dashboard" element={<Dashboard />} />
+                <Route
+                  path="/"
+                  element={<Navigate to="/dashboard" replace />}
+                />
+              </Routes>
+            </main>
+          </div>
+        </div>
+      ) : (
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="*" element={<Navigate to="/login" replace />} />
         </Routes>
+      )}
     </Router>
   );
 }
