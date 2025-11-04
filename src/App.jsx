@@ -9,6 +9,7 @@ import Login from "./components/Login";
 import Signup from "./components/SignUp";
 import Dashboard from "./components/Dashboard";
 import Settings from "./components/Settings.jsx";
+import Sidebar from "./components/Sidebar";
 
 function App() {
   const { user, loading } = useAuth();
@@ -25,6 +26,7 @@ function App() {
     <Router>
       {user ? (
         <div className="flex h-screen bg-gray-50">
+          <Sidebar />
           <div className="flex-1 flex flex-col overflow-hidden">
             <main className="flex-1 overflow-x-hidden overflow-y-auto bg-gray-50">
               <Routes>
