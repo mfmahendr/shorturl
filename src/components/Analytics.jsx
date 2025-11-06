@@ -75,7 +75,7 @@ export default function Analytics() {
           <BarChart3 className="w-8 h-8 text-lime-600" />
           <h1 className="text-2xl font-bold text-gray-900">URL Analytics</h1>
         </div>
-          <div className="flex space-x-4 mb-8">
+        <div className="flex space-x-4 mb-8">
           <div className="flex-1 relative">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
             <input
@@ -141,52 +141,51 @@ export default function Analytics() {
               </div>
             </div>
 
- <div className="overflow-x-auto rounded-lg shadow border border-lime-200">
-  <table className="min-w-full divide-y divide-lime-200">
-    <thead className="bg-lime-50">
-      <tr>
-        <th className="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
-          <div className="flex items-center gap-2">
-            <Calendar className="w-4 h-4" />
-            <span>Timestamp</span>
-          </div>
-        </th>
-        <th className="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
-          <div className="flex items-center gap-2">
-            <Globe className="w-4 h-4" />
-            <span>IP Address</span>
-          </div>
-        </th>
-        <th className="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
-          <div className="flex items-center gap-2">
-            <User className="w-4 h-4" />
-            <span>User Agent</span>
-          </div>
-        </th>
-      </tr>
-    </thead>
+            <div className="overflow-x-auto rounded-lg shadow border border-lime-200">
+              <table className="min-w-full divide-y divide-lime-200">
+                <thead className="bg-lime-50">
+                  <tr>
+                    <th className="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                      <div className="flex items-center gap-2">
+                        <Calendar className="w-4 h-4" />
+                        <span>Timestamp</span>
+                      </div>
+                    </th>
+                    <th className="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                      <div className="flex items-center gap-2">
+                        <Globe className="w-4 h-4" />
+                        <span>IP Address</span>
+                      </div>
+                    </th>
+                    <th className="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                      <div className="flex items-center gap-2">
+                        <User className="w-4 h-4" />
+                        <span>User Agent</span>
+                      </div>
+                    </th>
+                  </tr>
+                </thead>
 
-    <tbody className="bg-white divide-y divide-lime-100">
-      {analytics.clicks.map((click, index) => (
-        <tr
-          key={index}
-          className="hover:bg-lime-50 transition-colors duration-200"
-        >
-          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-            {new Date(click.timestamp).toLocaleString()}
-          </td>
-          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700 font-mono">
-            {click.ip}
-          </td>
-          <td className="px-6 py-4 text-sm text-gray-600">
-            {click.user_agent}
-          </td>
-        </tr>
-      ))}
-    </tbody>
-  </table>
-</div>
-
+                <tbody className="bg-white divide-y divide-lime-100">
+                  {analytics.clicks.map((click, index) => (
+                    <tr
+                      key={index}
+                      className="hover:bg-lime-50 transition-colors duration-200"
+                    >
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                        {new Date(click.timestamp).toLocaleString()}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700 font-mono">
+                        {click.ip}
+                      </td>
+                      <td className="px-6 py-4 text-sm text-gray-600">
+                        {click.user_agent}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
         )}
       </div>
