@@ -10,6 +10,7 @@ import Signup from "./components/SignUp";
 import Dashboard from "./components/Dashboard";
 import Settings from "./components/Settings.jsx";
 import Sidebar from "./components/Sidebar";
+import Analytics from './components/Analytics.jsx';
 
 function App() {
   const { user, loading } = useAuth();
@@ -32,6 +33,7 @@ function App() {
               <Routes>
                 <Route path="/dashboard" element={<Dashboard />} />
                 <Route path="/settings" element={<Settings />} />
+                <Route path="/analytics" element={<Analytics />} />
                 <Route
                   path="/"
                   element={<Navigate to="/dashboard" replace />}

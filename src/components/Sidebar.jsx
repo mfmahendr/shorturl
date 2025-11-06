@@ -5,6 +5,7 @@ import {
   Link2,
   Plus,
   LayoutDashboard,
+  BarChart3,
   Settings,
   LogOut,
   User,
@@ -27,6 +28,7 @@ export default function Sidebar() {
       action: () => setShowCreateModal(true),
     },
     { name: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
+    { name: "Analytics", href: "/analytics", icon: BarChart3 },
     { name: "Settings", href: "/settings", icon: Settings },
   ];
 
